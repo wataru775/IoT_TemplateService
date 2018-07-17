@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Template;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class RestappController extends Controller
 {
@@ -25,7 +26,7 @@ class RestappController extends Controller
      */
     public function create()
     {
-        //
+        return response()->json(["code"=>"OK"]);
     }
 
     /**
@@ -37,6 +38,21 @@ class RestappController extends Controller
     public function store(Request $request)
     {
         //
+        Log::debug($request->all()['temperature']);
+        $temp = new Template;
+        $timestamp = now();
+        $temp->datetime = $timestamp;
+        $temp->sensor_id = $request->all()['terminal'];
+        $temp->template = $request->all()['temperature'];
+        $temp->humidity = $request->all()['humidity'];
+        $temp->created_at = $timestamp;
+        $temp->updated_at = $timestamp;
+
+        $temp->save();
+
+
+        return response()->json(["code"=>"OK"]);
+
     }
 
     /**
@@ -48,6 +64,7 @@ class RestappController extends Controller
     public function show($id)
     {
         //
+        return response()->json(["code"=>"OK"]);
     }
 
     /**
@@ -59,6 +76,7 @@ class RestappController extends Controller
     public function edit($id)
     {
         //
+        return response()->json(["code"=>"OK"]);
     }
 
     /**
@@ -71,6 +89,7 @@ class RestappController extends Controller
     public function update(Request $request, $id)
     {
         //
+        return response()->json(["code"=>"OK"]);
     }
 
     /**
@@ -82,5 +101,6 @@ class RestappController extends Controller
     public function destroy($id)
     {
         //
+        return response()->json(["code"=>"OK"]);
     }
 }
