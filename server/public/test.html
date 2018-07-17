@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>記録テスト</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(function (){
+            $("input[type=submit]").on("click",function() {
+                currentRequest = JSON.stringify({
+                    terminal: $("input[id=terminal]").val(),
+                    temperature: $("input[id=template]").val(),
+                    humidity: $("input[id=humidity]").val(),
+                    time: $("input[id=time]").val()
+                });
+                console.log("sending .... ",currentRequest);
+
+                $.ajax({
+                    type: "POST",
+                    url: "/api/v1/temp",
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    data: currentRequest
+                }).done(function(resp, status) {
+                    console.log(resp);
+                });
+            });
+
+        });
+    </script>
+</head>
+<body>
+    <h1>記録テスト</h1>
+    端末番号 : <input type="text" id="terminal"/><br>
+    温度　　 : <input type="text" id="temperature" /> 度<br>
+    湿度 　　: <input type="text" id="humidity" /> ％<br>
+    送信時間 : <input type="text" id="time" /> 二重送信のチェック用、起動時間かな<br>
+    <input type="submit" value="送信" />
+</body>
+</html>
